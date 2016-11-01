@@ -89,7 +89,7 @@ function positionSuccess(position) {
 	divMySpd.innerHTML = speed;
 	divMyLog.innerHTML = "Recieved position..";
 	
-	insertDelay(lat, lng, acc, alt, altAcc, speed);
+	insertWaypoint(lat, lng, acc, alt, altAcc, speed);
 }
 
 function positionError(positionError) {
