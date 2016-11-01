@@ -16,12 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- var watchId = null;
+var watchId = null;
 var positionOptions = {
    enableHighAccuracy: true,
    timeout: 15 * 1000, // 15 seconds
    maximumAge: 10 * 1000 // 10 seconds (maxiumAge is the time between readings in milliseconds)
 };
+
+$( document ).bind( "mobileinit", function() {
+	$.support.cors                 = true;
+	$.mobile.allowCrossDomainPages = true;
+	$.mobile.pushStateEnabled      = false;
+});
  
 var app = {
     // Application Constructor
@@ -92,6 +98,7 @@ function positionError(positionError) {
 }
 
 function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccuracy, speed) {
+	divMyLog.innerHTML = "Call ajax..";
 	var data = {
 		latitude			: latitude,
 		longitude			: longitude,
@@ -104,6 +111,7 @@ function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccurac
 	$.ajax({
 		type: "POST",
 		data: data, // pass as data
+		crossDomain: true,
 		dataType:'JSON', //Expected datatype to come back
 		url: "http://www.atgard.se/jakt/insertWaypoint.php"
 	})
@@ -117,4 +125,5 @@ function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccurac
 			divMyLog.innerHTML = "Added succesfully!";
 		}
 	})
+	divMyLog.innerHTML = "Waiting for ajax..";
 }
