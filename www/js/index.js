@@ -62,6 +62,7 @@ var app = {
 };
 
 var divMyPos = document.getElementById("myPosition");
+var divMyAcc = document.getElementById("myAccuracy");
 var divMyAlt = document.getElementById("myAltitude");
 var divMySpd = document.getElementById("mySpeed");
 var divMyLog = document.getElementById("myLog");
@@ -79,7 +80,7 @@ function positionSuccess(position) {
 	divMyPos.innerHTML = "Lat: " + lat + " Lng:" + lng;
 	divMyAcc.innerHTML = acc;
 	divMyAlt.innerHTML = alt;
-	divMySpeed.innerHTML = speed;
+	divMySpd.innerHTML = speed;
 	divMyLog.innerHTML = "Recieved position..";
 	
 	insertDelay(lat, lng, acc, alt, altAcc, speed);
