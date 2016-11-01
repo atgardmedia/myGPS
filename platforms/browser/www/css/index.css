@@ -59,6 +59,20 @@ body {
                                    /* offset horizontal: half of text area width */
 }
 
+.myDivClass {
+	padding:10px;
+}
+
+.myDivClass div {
+	text-align:left;
+}
+
+.myLogSpanText {
+}
+
+.myLogSpanData{
+}
+
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {

@@ -43,16 +43,20 @@
 </head>
 
 <body>
-	position start
-	<div id="myPosition">init</div>
-    position end
-
     <div class="app">
-        <h1>PhoneGap</h1>
+        <h1>DOG TRACKER</h1>
         <div id="deviceready" class="blink">
             <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
+            <p class="event received">Device is Ready!</p>
         </div>
+        
+        <div class="myDivClass">
+                <div><span class="myLogSpanText">POSITION:&nbsp;</span><span class="myLogSpanData" id="myPosition"></span></div>
+                <div><span class="myLogSpanText">ACCURACY:&nbsp;</span><span class="myLogSpanData" id="myAccuracy"></span></div>
+                <div><span class="myLogSpanText">ALTITUDE:&nbsp;</span><span class="myLogSpanData" id="myAltitude"></span></div>
+                <div><span class="myLogSpanText">SPEED:&nbsp;</span><span class="myLogSpanData" id="mySpeed"></span></div>
+                <div><span class="myLogSpanText">LOG:&nbsp;</span><span class="myLogSpanData" id="myLog">Waiting for signal..</span></div>
+            </div>
         
     </div>
     <script type="text/javascript" src="cordova.js"></script>

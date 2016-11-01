@@ -19,8 +19,8 @@
  var watchId = null;
 var positionOptions = {
    enableHighAccuracy: true,
-   timeout: 15 * 1000, // 10 seconds
-   maximumAge: 10 * 1000 // 5 seconds (maxiumAge is the time between readings in milliseconds)
+   timeout: 15 * 1000, // 15 seconds
+   maximumAge: 10 * 1000 // 10 seconds (maxiumAge is the time between readings in milliseconds)
 };
  
 var app = {
@@ -61,21 +61,59 @@ var app = {
     }
 };
 
+var divMyPos = document.getElementById("myPosition");
+var divMyAlt = document.getElementById("myAltitude");
+var divMySpd = document.getElementById("mySpeed");
+var divMyLog = document.getElementById("myLog");
+
 function positionSuccess(position) {
 				
-		var lat = position.coords.latitude;
-		var lng = position.coords.longitude;
-		var acc = position.coords.accuracy;
-		var alt = position.coords.altitude ?  position.coords.altitude : 'unavailable';
-		var altAcc = position.coords.altitudeAccuracy ? position.coords.altitudeAccuracy : 'unavailable';
-		var speed = position.coords.speed ? position.coords.speed : 'unavailable';
+	var lat = position.coords.latitude;
+	var lng = position.coords.longitude;
+	var acc = position.coords.accuracy;
+	var alt = position.coords.altitude ?  position.coords.altitude : 'unavailable';
+	var altAcc = position.coords.altitudeAccuracy ? position.coords.altitudeAccuracy : 'unavailable';
+	var speed = position.coords.speed ? position.coords.speed : 'unavailable';
 
-		var divMyPos = document.getElementById("myPosition");
-		divMyPos.innerHTML = "Position: " + lat + " - " + lng;
-		console.log("Position: " + lat + " - " + lng);
-	}
+	var divMyPos = document.getElementById("myPosition");
+	divMyPos.innerHTML = "Lat: " + lat + " Lng:" + lng;
+	divMyAcc.innerHTML = acc;
+	divMyAlt.innerHTML = alt;
+	divMySpeed.innerHTML = speed;
+	divMyLog.innerHTML = "Recieved position..";
+	
+	insertDelay(lat, lng, acc, alt, altAcc, speed);
+}
 
-	function positionError(positionError) {
-		var divMyPos = document.getElementById("myPosition");
-		divMyPos.innerHTML = "GPS ERROR ";
+function positionError(positionError) {
+	
+	divMyLog.innerHTML = "GPS ERROR ";
+}
+
+function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccuracy, speed) {
+	var data = {
+		latitude			: latitude,
+		longitude			: longitude,
+		accuracy			: accuracy,
+		altitude			: altitude,
+		altitudeAccuracy	: altitudeAccuracy,
+		speed				: speed
 	}
+	
+	$.ajax({
+		type: "POST",
+		data: data, // pass as data
+		dataType:'JSON', //Expected datatype to come back
+		url: "http://www.atgard.se/jakt/insertWaypoint.php"
+	})
+
+	.done(function (status) {
+		if(status != 'OK'){
+			divMyLog.innerHTML = "Error when trying to add..";
+		}
+
+		else {
+			divMyLog.innerHTML = "Added succesfully!";
+		}
+	})
+}
