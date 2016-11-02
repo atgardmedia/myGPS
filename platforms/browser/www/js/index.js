@@ -118,9 +118,12 @@ function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccurac
 		url: "http://www.atgard.se/jakt/insertWaypoint.php"
 	})
 
-	.done(function (status) {
-		if(status != 'OK'){
-			divMyError.innerHTML = "Error: " + status;
+	.done(function (reply) {
+		var replyStatus = reply.status;
+		var replyExtra = reply.extra;
+				
+		if(replyStatus != 'OK'){
+			divMyError.innerHTML = "Error: " + reply;
 		}
 
 		else {

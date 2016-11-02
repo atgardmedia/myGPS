@@ -16,6 +16,7 @@
     <content src="index.html" />
     <icon src="icon.png" />
     <access origin="http://www.atgard.se" />
+    <access origin="https://www.atgard.se" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
