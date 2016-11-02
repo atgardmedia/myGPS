@@ -47,7 +47,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		console.log("my device ready");
-		watchId = navigator.geolocation.watchPosition(positionSuccess, positionError, positionOptions);
+		
 		console.log("watchID started");
         app.receivedEvent('deviceready');
     },
@@ -62,10 +62,11 @@ var app = {
 
         console.log('Received Event: ' + id);
 		
-		
+		startTrack();
 		
     }
 };
+
 
 var divMyPos = document.getElementById("myPosition");
 var divMyAcc = document.getElementById("myAccuracy");
@@ -73,6 +74,16 @@ var divMyAlt = document.getElementById("myAltitude");
 var divMySpd = document.getElementById("mySpeed");
 var divMyLog = document.getElementById("myLog");
 var divMyError = document.getElementById("myError");
+
+function startTrack() {
+	divMyLog.innerHTML = "Tracker started";
+	watchId = navigator.geolocation.watchPosition(positionSuccess, positionError, positionOptions);
+}
+
+function stopTrack() {
+	divMyLog.innerHTML = "Tracker stoped";
+	navigator.geolocation.clearWatch(watchId);
+}
 
 
 function positionSuccess(position) {
