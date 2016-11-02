@@ -72,6 +72,8 @@ var divMyAcc = document.getElementById("myAccuracy");
 var divMyAlt = document.getElementById("myAltitude");
 var divMySpd = document.getElementById("mySpeed");
 var divMyLog = document.getElementById("myLog");
+var divMyError = document.getElementById("myError");
+
 
 function positionSuccess(position) {
 				
@@ -94,7 +96,7 @@ function positionSuccess(position) {
 
 function positionError(positionError) {
 	
-	divMyLog.innerHTML = "GPS ERROR ";
+	divMyError.innerHTML = "GPS ERROR ";
 }
 
 function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccuracy, speed) {
@@ -118,7 +120,7 @@ function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccurac
 
 	.done(function (status) {
 		if(status != 'OK'){
-			divMyLog.innerHTML = "Error when trying to add..";
+			divMyError.innerHTML = "Error: " + status;
 		}
 
 		else {

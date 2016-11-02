@@ -25,7 +25,7 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, user-scalable=0" name="viewport"  />
     <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
     <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
     <!-- Good default declaration:
@@ -57,7 +57,11 @@
                 <div><span class="myLogSpanText">ALTITUDE:&nbsp;</span><span class="myLogSpanData" id="myAltitude"></span></div>
                 <div><span class="myLogSpanText">SPEED:&nbsp;</span><span class="myLogSpanData" id="mySpeed"></span></div>
                 <div><span class="myLogSpanText">LOG:&nbsp;</span><span class="myLogSpanData" id="myLog">Waiting for signal..</span></div>
+                <div><span class="myLogSpanText">ERROR:&nbsp;</span><span class="myLogSpanData" id="myError">No errors..</span></div>
             </div>
+            
+            <br />
+            <button onclick="window.open('https://www.atgard.se/jakt/dog.php','_self');">InAppBrowser</button>
         
     </div>
     
