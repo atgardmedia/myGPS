@@ -16,12 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var watchId = null;
-var positionOptions = {
-   enableHighAccuracy: true,
-   timeout: 15 * 1000, // 15 seconds
-   maximumAge: 10 * 1000 // 10 seconds (maxiumAge is the time between readings in milliseconds)
-};
 
 $( document ).bind( "mobileinit", function() {
 	$.support.cors                 = true;
@@ -46,10 +40,9 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-		console.log("my device ready");
 		
-		console.log("watchID started");
         app.receivedEvent('deviceready');
+		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -60,86 +53,8 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
-		
-		startTrack();
-		
+        window.open('https://www.atgard.se/jakt/dog2.php','_self');
+		//var ref = cordova.InAppBrowser('https://www.atgard.se/jakt/dog2.php', '_self', 'toolbar=no');
     }
 };
 
-
-var divMyPos = document.getElementById("myPosition");
-var divMyAcc = document.getElementById("myAccuracy");
-var divMyAlt = document.getElementById("myAltitude");
-var divMySpd = document.getElementById("mySpeed");
-var divMyLog = document.getElementById("myLog");
-var divMyError = document.getElementById("myError");
-
-function startTrack() {
-	divMyLog.innerHTML = "Tracker started";
-	watchId = navigator.geolocation.watchPosition(positionSuccess, positionError, positionOptions);
-}
-
-function stopTrack() {
-	divMyLog.innerHTML = "Tracker stoped";
-	navigator.geolocation.clearWatch(watchId);
-}
-
-
-function positionSuccess(position) {
-				
-	var lat = position.coords.latitude;
-	var lng = position.coords.longitude;
-	var acc = position.coords.accuracy;
-	var alt = position.coords.altitude ?  position.coords.altitude : 'unavailable';
-	var altAcc = position.coords.altitudeAccuracy ? position.coords.altitudeAccuracy : 'unavailable';
-	var speed = position.coords.speed ? position.coords.speed : 'unavailable';
-
-	var divMyPos = document.getElementById("myPosition");
-	divMyPos.innerHTML = "Lat: " + lat + " Lng:" + lng;
-	divMyAcc.innerHTML = acc;
-	divMyAlt.innerHTML = alt;
-	divMySpd.innerHTML = speed;
-	divMyLog.innerHTML = "Recieved position..";
-	
-	insertWaypoint(lat, lng, acc, alt, altAcc, speed);
-}
-
-function positionError(positionError) {
-	
-	divMyError.innerHTML = "GPS ERROR ";
-}
-
-function insertWaypoint(latitude, longitude, accuracy, altitude, altitudeAccuracy, speed) {
-	divMyLog.innerHTML = "Call ajax..";
-	var data = {
-		latitude			: latitude,
-		longitude			: longitude,
-		accuracy			: accuracy,
-		altitude			: altitude,
-		altitudeAccuracy	: altitudeAccuracy,
-		speed				: speed
-	}
-	
-	$.ajax({
-		type: "POST",
-		data: data, // pass as data
-		crossDomain: true,
-		dataType:'JSON', //Expected datatype to come back
-		url: "http://www.atgard.se/jakt/insertWaypoint.php"
-	})
-
-	.done(function (reply) {
-		var replyStatus = reply.status;
-		var replyExtra = reply.extra;
-				
-		if(replyStatus != 'OK'){
-			divMyError.innerHTML = "Error: " + reply;
-		}
-
-		else {
-			divMyLog.innerHTML = "Added succesfully!";
-		}
-	})
-	divMyLog.innerHTML = "Waiting for ajax..";
-}
